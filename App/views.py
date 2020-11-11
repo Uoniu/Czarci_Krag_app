@@ -1,7 +1,9 @@
 
 # Create your views here.
 from django.shortcuts import render, redirect
+from App.models import Test
 
 
 def index(request):
-    return render(request, 'App/index.html', context=None)
+    obj = Test.objects.all()
+    return render(request, 'App/index.html', {"obj": obj})

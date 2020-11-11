@@ -77,8 +77,15 @@ WSGI_APPLICATION = 'Czarci_Krag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'CzarciKragDB',
+        'USER': 'CzarciKragAdmin@czarcikragdatabase',
+        'PASSWORD': 'P0stgre$Admin',
+        'HOST': 'czarcikragdatabase.postgres.database.azure.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
     }
 }
 
