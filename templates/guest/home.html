@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>CzarciKrag</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
+</head>
+<body>
+<div id="page" class="container">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#">Logo</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="{% url 'home' %}" accesskey="1" title="">Strona główna</a></li>
+                {% if user.TypUzytkownika == "Użytkownik" %}
+                    <li><a href="{% url 'user_bookings' %}" accesskey="6" title="">Moje rezerwacje</a></li>
+                    <li><a href="{% url 'user_points' %}" accesskey="6" title="">Moje punkty</a></li>
+                {% elif user.TypUzytkownika == "Administrator" %}
+                    <li><a href="#" accesskey="6" title="">Użytkownicy</a></li>
+                    <li><a href="#" accesskey="6" title="">Rezerwacje</a></li>
+                    <li><a href="#" accesskey="6" title="">Programy lojalnościowe</a></li>
+                    <li><a href="#" accesskey="6" title="">Powiadomienia</a></li>
+                    <li><a href="#" accesskey="6" title="">Buty</a></li>
+                {% endif %}
+                <li><a href="{% url 'prices' %}" accesskey="2" title="">Cennik</a></li>
+                <li><a href="{% url 'gallery' %}" accesskey="3" title="">Galeria</a></li>
+                <li><a href="{% url 'about' %}" accesskey="4" title="">O nas</a></li>
+                <li><a href="{% url 'contact' %}" accesskey="5" title="">Kontakt</a></li>
+                {% if user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Administrator"  %}
+                    <li><a href="{% url 'logout' %}" accesskey="6" title="">Wylogowanie</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" accesskey="6" title="">Logowanie</a></li>
+                {% endif %}
+			</ul>
+		</div>
+	</div>
+	<div id="main">
+
+    {% block content %}
+        <div id="Aktualności" class="title">
+
+        <h2>Nowości</h2>
+
+        <table>
+        {% if obj %}
+        {% for k in obj %}
+            <tr> <td> <h2>{{ k.Naglowek}}</h2></td> </tr>
+            <tr> <td><span>{{ k.Tresc }}</span></td></tr>
+        {% endfor %}
+        {% endif %}
+
+        </table>
+    </div>
+    <div id="welcome">
+        <div class="title">
+            <h2>Lorem ipsum dolor sit amet, consectetur</h2>
+            <span class="byline">adipiscing elit. Donec tempor, dolor et sodales posuere, est ipsum tristique leo, aliquet consequat sem quam eget turpis.</span>
+        </div>
+        <p>In lacinia ultricies risus. Curabitur molestie, tortor id vulputate lacinia, neque arcu commodo diam, non eleifend metus lacus ac dolor. Nulla dui elit, pellentesque at lacus vel, convallis aliquam neque. Mauris viverra lectus vel dolor sagittis, sed tristique nisl scelerisque.</p>
+    </div>
+    <div id="featured">
+        <div class="title">
+            <h2>Donec ac augue lacus.</h2>
+            <span class="byline">Morbi ut auctor nulla. Fusce tincidunt, eros vel pharetra pellentesque,</span>
+        </div>
+    </div>
+
+    {% endblock %}
+
+	</div>
+</div>
+
+
+</body>
+</html>
