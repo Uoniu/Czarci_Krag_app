@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>CzarciKrag</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
+</head>
+<body>
+<div id="page" class="container">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#">Logo</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="{% url 'user_home' %}" accesskey="1" title="">Strona główna</a></li>
+                <li><a href="{% url 'user_data' %}" accesskey="2" title="">Dane konta</a></li>
+                <li><a href="{% url 'user_program' %}" accesskey="3" title="">Program lojalnościowy</a></li>
+                <li  class="current_page_item"><a href="{% url 'user_reserve' %}" accesskey="9" title="">Rezerwacje</a></li>
+				<li><a href="{% url 'prices' %}" accesskey="4" title="">Cennik</a></li>
+				<li><a href="#" accesskey="5" title="">Galeria</a></li>
+				<li><a href="#" accesskey="6" title="">O nas</a></li>
+				<li><a href="#" accesskey="7" title="">Kontakt</a></li>
+                <li><a href="{% url 'logout' %}" accesskey="8" title="">Logowanie</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="main">
+		<div id="Aktualności" class="title">
+			<h2>Rezerwacja</h2>
+
+                <form method="post">
+                    <label for="date">Data</label><br>
+                    <input type="text" id="date" name="date">       <br>
+
+                    <label for="btime">Godzina rozpoczęcia</label>  <br>
+                    <input type="text" id="btime" name="btime">     <br>
+
+                    <label for="etime">Godzina zakończenia</label>  <br>
+                    <input type="text" id="etime" name="etime">     <br>
+
+                    <label for="service">usługa</label>             <br>
+                    <input type="text" id="service" name="service"> <br>
+
+                    <button type="submit">zarezerwuj</button>
+                </form>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

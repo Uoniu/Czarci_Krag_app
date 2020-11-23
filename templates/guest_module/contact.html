@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>CzarciKrag</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
+</head>
+<body>
+<div id="page" class="container">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#">Logo</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="{% url 'home' %}" accesskey="1" title="">Strona główna</a></li>
+				<li><a href="{% url 'prices' %}" accesskey="2" title="">Cennik</a></li>
+				<li><a href="{% url 'gallery' %}" accesskey="3" title="">Galeria</a></li>
+				<li><a href="{% url 'about' %}" accesskey="4" title="">O nas</a></li>
+				<li class="current_page_item"><a href="{% url 'contact' %}" accesskey="5" title="">Kontakt</a></li>
+                <li><a href="{% url 'login' %}" accesskey="6" title="">Logowanie</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="main">
+		<div id="Kontakt" class="title">
+			<h2>Kontakt</h2>
+        </div>
+
+		<div id="copyright">
+			<span>&copy; Untitled. All rights reserved. </span>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
