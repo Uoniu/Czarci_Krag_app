@@ -6,8 +6,10 @@ from django.db import models
 class Test(models.Model):
     col = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.col
+
+class Test_Photos(models.Model):
+    photo = models.ImageField(upload_to='test_photos')
+    name = models.CharField(max_length=100)
 
 
 class Aktualnosci(models.Model):

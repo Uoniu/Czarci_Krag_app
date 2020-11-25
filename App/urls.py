@@ -3,6 +3,7 @@ from django.urls import path
 from App import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+
 urlpatterns = [
     # =========================================================== guest
     path('guest/', views.guest_home, name='home'),
@@ -16,8 +17,9 @@ urlpatterns = [
     path('gallery/', views.gallery, name='gallery'),
     path('about/', views.about, name='about'),
     path('contact/', views.prices, name='contact'),
-    path('login/', views.login, name='login')
-
+    path('login/', views.login, name='login'),
+    # =========================================================== test
+    path('test/',views.test, name='test')
 ]
 
 urlpatterns += staticfiles_urlpatterns()

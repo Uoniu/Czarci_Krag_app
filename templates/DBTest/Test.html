@@ -1,0 +1,31 @@
+{% extends 'guest/home.html' %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ formalog }}
+    <input type="submit" value="OK" name="sendok"/>
+</form>
+<table>
+    {% for objects in record %}
+    <tr> <td> <h2>{{ objects.id }}</h2></td> </tr>
+    <tr> <td><span>{{ objects.col }}</span></td></tr>
+    {% endfor %}
+</table>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK" name="sendok"/>
+</form>
+<form method="POST">
+    {% csrf_token %}
+    {{ formdel }}
+    <input type="submit" value="OK" name="senddel"/>
+</form>
+    {% if user == "skema byku" %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ formalt }}
+        <input type="submit" value="OK" name="sendalt"/>
+    </form>
+    {% endif %}
+{% endblock %}

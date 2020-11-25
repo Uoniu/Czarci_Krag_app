@@ -23,6 +23,8 @@
                     <li><a href="#" accesskey="6" title="">Programy lojalnościowe</a></li>
                     <li><a href="#" accesskey="6" title="">Powiadomienia</a></li>
                     <li><a href="#" accesskey="6" title="">Buty</a></li>
+                {% elif user.TypUzytkownika == "Kierownik" %}
+
                 {% endif %}
                 <li><a href="{% url 'prices' %}" accesskey="2" title="">Cennik</a></li>
                 <li><a href="{% url 'gallery' %}" accesskey="3" title="">Galeria</a></li>
@@ -52,19 +54,6 @@
         {% endif %}
 
         </table>
-    </div>
-    <div id="welcome">
-        <div class="title">
-            <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-            <span class="byline">adipiscing elit. Donec tempor, dolor et sodales posuere, est ipsum tristique leo, aliquet consequat sem quam eget turpis.</span>
-        </div>
-        <p>In lacinia ultricies risus. Curabitur molestie, tortor id vulputate lacinia, neque arcu commodo diam, non eleifend metus lacus ac dolor. Nulla dui elit, pellentesque at lacus vel, convallis aliquam neque. Mauris viverra lectus vel dolor sagittis, sed tristique nisl scelerisque.</p>
-    </div>
-    <div id="featured">
-        <div class="title">
-            <h2>Donec ac augue lacus.</h2>
-            <span class="byline">Morbi ut auctor nulla. Fusce tincidunt, eros vel pharetra pellentesque,</span>
-        </div>
     </div>
 
     {% endblock %}
