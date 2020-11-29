@@ -6,63 +6,120 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
 </head>
 <body>
-<div id="page" class="container">
-	<div id="header">
-		<div id="logo">
-			<h1><a href="#">Logo</a></h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li><a href="{% url 'home' %}" title="">Strona główna</a></li>
-                {% if user.TypUzytkownika == "Użytkownik" %}
-                    <li><a href="{% url 'user_reservations' %}" title="">Moje rezerwacje</a></li>
-                    <li><a href="{% url 'user_points' %}" title="">Moje punkty</a></li>
-                    <li><a href="{% url 'user_profile' %}" title="">Profil</a></li>
-                {% elif user.TypUzytkownika == "Administrator" %}
-                    <li><a href="{% url 'all_users' %}" title="">Użytkownicy</a></li>
-                    <li><a href="{% url 'all_programs' %}" title="">Programy lojalnościowe</a></li>
-             {% endif %}
-                {% if user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
-                    <li><a href="{% url 'all_reservations' %}" title="">Rezerwacje</a></li>
-                    <li><a href="{% url 'notifications' %}" title="">Powiadomienia</a></li>
-                    <li><a href="{% url 'all_boots' %}" title="">Buty</a></li>
+{#<<<<<<< HEAD#}
+{#<div id="page" class="container">#}
+{#	<div id="header">#}
+{#		<div id="logo">#}
+{#			<h1><a href="#">Logo</a></h1>#}
+{#		</div>#}
+{#		<div id="menu">#}
+{#			<ul>#}
+{#				<li><a href="{% url 'home' %}" title="">Strona główna</a></li>#}
+{#                {% if user.TypUzytkownika == "Użytkownik" %}#}
+{#                    <li><a href="{% url 'user_reservations' %}" title="">Moje rezerwacje</a></li>#}
+{#                    <li><a href="{% url 'user_points' %}" title="">Moje punkty</a></li>#}
+{#                    <li><a href="{% url 'user_profile' %}" title="">Profil</a></li>#}
+{#                {% elif user.TypUzytkownika == "Administrator" %}#}
+{#                    <li><a href="{% url 'all_users' %}" title="">Użytkownicy</a></li>#}
+{#                    <li><a href="{% url 'all_programs' %}" title="">Programy lojalnościowe</a></li>#}
+{#             {% endif %}#}
+{#                {% if user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}#}
+{#                    <li><a href="{% url 'all_reservations' %}" title="">Rezerwacje</a></li>#}
+{#                    <li><a href="{% url 'notifications' %}" title="">Powiadomienia</a></li>#}
+{#                    <li><a href="{% url 'all_boots' %}" title="">Buty</a></li>#}
+{#                {% endif %}#}
+{#                <li><a href="{% url 'prices' %}" title="">Cennik</a></li>#}
+{#                <li><a href="{% url 'gallery' %}" title="">Galeria</a></li>#}
+{#                <li><a href="{% url 'faq' %}" title="">FAQ</a></li>#}
+{#                <li><a href="{% url 'about' %}" title="">O nas</a></li>#}
+{#                <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>#}
+{#                {% if user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator"  %}#}
+{#                    <li><a href="{% url 'logout' %}?action=logout" title="">Wylogowanie</a></li>#}
+{#                {% else %}#}
+{#                    <li><a href="{% url 'login' %}" title="">Logowanie</a></li>#}
+{#                {% endif %}#}
+{#			</ul>#}
+{#		</div>#}
+{#	</div>#}
+{#	<div id="main">#}
+{##}
+{#    {% block content %}#}
+{#        <div id="Aktualności" class="title">#}
+{#=======#}
+    <div id="page" class="container">
+        <div style="padding: 2px 0 2px 0; float: right;">
+            <ul>
+                <li>
+                    {% if  user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
+                        <p style="color: #bbccdd">Zalogowany jako: {{user.Imie}} {{user.Nazwisko}}</p>
+                    {% else %}
+                        <p style="color: #bbccdd">Witaj</p>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <div id="header">
+            <div id="logo">
+                <img src="{% static 'css/logo4.png' %}">
+{#                <h1><a href="#">Logo</a></h1>#}
+            </div>
+{#>>>>>>> 97b2c2b7506d8625f62dc8e1c6fc1cd3b92248fa#}
+
+            <div id="menu">
+                <ul>
+                    <li><a href="{% url 'home' %}" title="">Strona główna</a></li>
+                    {% if user.TypUzytkownika == "Użytkownik" %}
+                        <li><a href="{% url 'user_reservations' %}" title="">Moje rezerwacje</a></li>
+                        <li><a href="{% url 'user_points' %}" title="">Moje punkty</a></li>
+                        <li><a href="{% url 'user_profile' %}" title="">Profil</a></li>
+                    {% elif user.TypUzytkownika == "Administrator" %}
+                        <li><a href="{% url 'all_users' %}" title="">Użytkownicy</a></li>
+                        <li><a href="{% url 'all_programs' %}" title="">Programy lojalnościowe</a></li>
+                    {% elif user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
+                        <li><a href="{% url 'all_reservations' %}" title="">Rezerwacje</a></li>
+                        <li><a href="{% url 'notifications' %}" title="">Powiadomienia</a></li>
+                        <li><a href="{% url 'all_boots' %}" title="">Buty</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'prices' %}" title="">Cennik</a></li>
+                    <li><a href="{% url 'gallery' %}" title="">Galeria</a></li>
+                    <li><a href="{% url 'faq' %}" title="">FAQ</a></li>
+                    <li><a href="{% url 'about' %}" title="">O nas</a></li>
+                    <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
+                    {% if user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator"  %}
+                        <li><a href="{% url 'logout' %}?action=logout" title="">Wylogowanie</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}" title="">Logowanie</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+
+            {% block content %}
+            <div id="Aktualności" class="title">
+
+                <h2>Nowości</h2>
+                <hr><hr>
+
+                <table>
+                {% if obj %}
+                {% for k in obj %}
+                    {% if k.Naglowek != "Cennik" %}
+                    <tr> <td> <h2>{{ k.Naglowek}}</h2></td> </tr>
+                    <tr> <td><span>{{ k.Tresc }}</span></td></tr>
+                    {% endif %}
+                {% endfor %}
                 {% endif %}
-                <li><a href="{% url 'prices' %}" title="">Cennik</a></li>
-                <li><a href="{% url 'gallery' %}" title="">Galeria</a></li>
-                <li><a href="{% url 'faq' %}" title="">FAQ</a></li>
-                <li><a href="{% url 'about' %}" title="">O nas</a></li>
-                <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
-                {% if user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator"  %}
-                    <li><a href="{% url 'logout' %}?action=logout" title="">Wylogowanie</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}" title="">Logowanie</a></li>
-                {% endif %}
-			</ul>
-		</div>
-	</div>
-	<div id="main">
 
-    {% block content %}
-        <div id="Aktualności" class="title">
+                </table>
+            </div>
 
-        <h2>Nowości</h2>
+            {% endblock %}
+            <div id="copyright">
+                <span>&copy;Czarci Krąg. All rights reserved. </span>
+            </div>
 
-        <table>
-        {% if obj %}
-        {% for k in obj %}
-            <tr> <td> <h2>{{ k.Naglowek}}</h2></td> </tr>
-            <tr> <td><span>{{ k.Tresc }}</span></td></tr>
-        {% endfor %}
-        {% endif %}
-
-        </table>
+        </div>
     </div>
-
-    {% endblock %}
-
-	</div>
-</div>
-
-
 </body>
 </html>
