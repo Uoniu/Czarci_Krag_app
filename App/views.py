@@ -67,7 +67,7 @@ def user_profile(request):
 
 # ==========================================shared
 def prices(request):
-    context = {}
+    context = {'ceny': App.models.Aktualnosci.objects.get(Naglowek="Cennik")}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
     return render(request, 'shared/prices.html', context)
@@ -95,7 +95,8 @@ def contact(request):
 
 
 def faq(request):
-    context = {}
+    context = {'fq': App.models.FAQ.objects.all()}
+
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
     return render(request, 'shared/faq.html', context)
