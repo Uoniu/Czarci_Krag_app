@@ -32,7 +32,7 @@
                 <li><a href="{% url 'about' %}" title="">O nas</a></li>
                 <li><a href="{% url 'contact' %}" title="">Kontakt</a></li>
                 {% if user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator"  %}
-                    <li><a href="{% url 'logout' %}" title="">Wylogowanie</a></li>
+                    <li><a href="{% url 'logout' %}?action=logout" title="">Wylogowanie</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}" title="">Logowanie</a></li>
                 {% endif %}
