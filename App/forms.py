@@ -1,24 +1,21 @@
 from django import forms
+import App.models
+
+
+class Datetimeinput(forms.DateInput):
+    input_type = 'datetime-local'
 
 
 class LoginForm(forms.Form):
-    mail = forms.EmailField(label="E-Mail")
-    password = forms.CharField(widget=forms.PasswordInput(), label="Pass")
-
-class testform(forms.Form):
-    col = forms.CharField(label="cool")
+    mail = forms.EmailField(label="E-Mail", required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), label="Pass", required=True)
 
 
-class testformdel(forms.Form):
-    colid = forms.IntegerField(label = "id")
-
-class testformalt(forms.Form):
-    colidd = forms.IntegerField(label = "id")
-    coll = forms.CharField(label="cool")
-
-class simplelogin (forms.Form):
-    one = forms.CharField(label="id")
-    two = forms.CharField(label="big D")
+class Rezerwacjaform(forms.Form):
+    data_rozpoczeczia = forms.DateTimeField(widget=Datetimeinput,input_formats=['%Y-%m-%d %H:%M:%S'])
+    data_zakonczenia = forms.DateTimeField(widget=Datetimeinput, input_formats=['%Y-%m-%d %H:%M:%S'])
+    uwagi = forms.CharField(max_length=50)
+    usluga = forms.ModelChoiceField(queryset=App.models.Uslugi.objects.all())
 
 
 

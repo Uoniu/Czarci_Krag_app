@@ -2,16 +2,13 @@
 # Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from App.models import Aktualnosci
-from App.models import Uzytkownik
-from App.models import Test
 import App.forms
-
+import App.models
 
 
 # ==========================================guest
 def guest_home(request):
-    obj = Aktualnosci.objects.all()
+    obj = App.models.Aktualnosci.objects.all()
     return render(request, 'guest/home.html', {"obj": obj})
 
 
@@ -20,13 +17,22 @@ def logout(request):
     context = {}
     return render(request, 'user/logout.html', context)
 
+
 def user_bookings(request):
     context = {}
+    if request.session.get('userid'):
+        context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
     return render(request, 'user/user_bookings.html', context)
+
 
 def user_points(request):
     context = {}
     return render(request, 'user/user_points.html', context)
+
+
+def user_profile(request):
+    context = {}
+    return render(request, 'user/user_profile.html', context)
 
 
 # ==========================================shared
@@ -50,6 +56,11 @@ def contact(request):
     return render(request, 'shared/contact.html', context)
 
 
+def faq(request):
+    context = {}
+    return render(request, 'shared/faq.html', context)
+
+
 def login(request):
 
     if request.method == 'POST':
@@ -57,12 +68,12 @@ def login(request):
         if form.is_valid():
             mail = form.cleaned_data['mail']
             password = form.cleaned_data['password']
-            user = Uzytkownik.objects.get(email=mail)
-            obj = Aktualnosci.objects.all()
+            obj = App.models.Aktualnosci.objects.all()
 
             try:
-                user = Uzytkownik.objects.get(email=mail)
+                user = App.models.Uzytkownik.objects.get(email=mail)
                 if user.Haslo == password:
+                    request.session['userid'] = user.id.__str__()
                     return render(request, 'guest/home.html', {"obj": obj, "user": user})
             except AssertionError as error:
                 guest_home(request)
@@ -70,40 +81,31 @@ def login(request):
         form = App.forms.LoginForm()
         return render(request, 'shared/login.html', {"form": form})
 
-# ===================================== db test ===================================
-def test(request):
 
-    record = Test.objects.all()
-    if request.method == 'POST':
-        formatka = App.forms.testform(request.POST)
-        formatkadel = App.forms.testformdel(request.POST)
-        formatkaalt = App.forms.testformalt(request.POST)
-        formatkalogin = App.forms.simplelogin(request.POST)
-        if formatka.is_valid():
-            test_obj = Test()
-            dana = formatka.cleaned_data['col']
-            test_obj.col = dana
-            test_obj.save()
-            return redirect('test')
-        if formatkadel.is_valid():
-            test_obj = Test.objects.get(id=formatkadel.cleaned_data['colid'])
-            test_obj.delete()
-            return redirect('test')
-        if formatkaalt.is_valid():
-            test_obj = Test.objects.get(id=formatkaalt.cleaned_data['colidd'])
-            test_obj.col = formatkaalt.cleaned_data['coll']
-            test_obj.save()
-            return redirect('test')
-        if formatkalogin.is_valid():
-            formatka = App.forms.testform()
-            formatkadel = App.forms.testformdel()
-            formatkaalt = App.forms.testformalt()
-            formatkalogin = App.forms.simplelogin()
-            user = "skema byku"
-            return render(request, 'DBTest/Test.html', {"record": record, "form": formatka, "formdel": formatkadel, "formalt": formatkaalt, "formalog": formatkalogin, "user": user})
-    else:
-        formatka = App.forms.testform()
-        formatkadel = App.forms.testformdel()
-        formatkaalt = App.forms.testformalt()
-        formatkalogin = App.forms.simplelogin()
-        return render(request, 'DBTest/Test.html', {"record": record, "form": formatka, "formdel": formatkadel, "formalt": formatkaalt, "formalog": formatkalogin})
+# ==========================================manager
+def all_boots(request):
+    context = {}
+    return render(request, 'manager/all_boots.html', context)
+
+
+def all_reservations(request):
+    context = {}
+    return render(request, 'manager/all_reservations.html', context)
+
+
+def notifications(request):
+    context = {}
+    return render(request, 'manager/notifications.html', context)
+
+
+# ==========================================admin
+def all_users(request):
+    context = {}
+    return render(request, 'power/all_users.html', context)
+
+
+def all_programs(request):
+    context = {}
+    return render(request, 'power/all_programs.html', context)
+
+

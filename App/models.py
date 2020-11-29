@@ -41,6 +41,9 @@ class Uslugi(models.Model):
     NazwaUslugi = models.CharField(max_length=30,null=False)
     TypUslugi = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.NazwaUslugi()
+
 class Uzytkownik(models.Model):
     TypUzytkownika = models.CharField(max_length=20)
     Imie = models.CharField(max_length=50)
