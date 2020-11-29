@@ -42,7 +42,7 @@ class Uslugi(models.Model):
     TypUslugi = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.NazwaUslugi()
+        return str(self.NazwaUslugi)
 
 class Uzytkownik(models.Model):
     TypUzytkownika = models.CharField(max_length=20)

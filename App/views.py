@@ -1,6 +1,6 @@
 
 # Create your views here.
-from django.http import HttpResponseRedirect
+
 from django.shortcuts import render, redirect
 import App.forms
 import App.models
@@ -8,8 +8,11 @@ import App.models
 
 # ==========================================guest
 def guest_home(request):
-    obj = App.models.Aktualnosci.objects.all()
-    return render(request, 'guest/home.html', {"obj": obj})
+    context = {}
+    context['obj'] = App.models.Aktualnosci.objects.all()
+    if request.session.get('userid'):
+        context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+    return render(request, 'guest/home.html', context)
 
 
 # ==========================================user
@@ -22,7 +25,24 @@ def user_bookings(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
-    return render(request, 'user/user_bookings.html', context)
+        if request.method == 'POST':
+            form = App.forms.Rezerwacjaform(request.POST)
+            if form.is_valid():
+                tmp_rezerwacja = App.models.Rezerwacja()
+                tmp_rezerwacja.Uwagi = form.cleaned_data['uwagi']
+                tmp_rezerwacja.DataRozpoczecia = form.cleaned_data['data_rozpoczeczia']
+                tmp_rezerwacja.DataZakonczenia = form.cleaned_data['data_zakonczenia']
+                tmp_rezerwacja.IdUslugi = form.cleaned_data['usluga']
+                tmp_rezerwacja.IdUzytkownika = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+                tmp_rezerwacja.save()
+                return redirect(guest_home)
+        else:
+            form = App.forms.Rezerwacjaform()
+            context['form'] = form
+            print(context)
+            return render(request, 'user/user_bookings.html', context)
+    else:
+        return render(request, 'guest/home.html')
 
 
 def user_points(request):

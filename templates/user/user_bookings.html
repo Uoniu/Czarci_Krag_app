@@ -4,7 +4,11 @@
     <div id="User_bookings" class="title">
         <h1>Moje rezerwacje</h1>
 
-        <p>hardkodowany na razie rezerwacje</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Rezerwuj</button>
+    </form>
 
     </div>
 {% endblock %}
