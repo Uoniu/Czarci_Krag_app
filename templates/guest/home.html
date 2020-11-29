@@ -21,7 +21,8 @@
                 {% elif user.TypUzytkownika == "Administrator" %}
                     <li><a href="{% url 'all_users' %}" title="">Użytkownicy</a></li>
                     <li><a href="{% url 'all_programs' %}" title="">Programy lojalnościowe</a></li>
-                {% elif user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
+             {% endif %}
+                {% if user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
                     <li><a href="{% url 'all_reservations' %}" title="">Rezerwacje</a></li>
                     <li><a href="{% url 'notifications' %}" title="">Powiadomienia</a></li>
                     <li><a href="{% url 'all_boots' %}" title="">Buty</a></li>

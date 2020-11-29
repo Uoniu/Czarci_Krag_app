@@ -3,7 +3,12 @@
     <div id="User_points" class="title">
         <h1>Mój program lojalnościowy</h1>
 
-        <p>hardkodowany na razie program</p>
+        {%  if program %}
+            {% for k in program %}
+                <br/>
+                <b>{{ k.Punkty }}</b> -> {{ k.Nagroda }}
+            {% endfor %}
+        {% endif %}
 
     </div>
 {% endblock %}

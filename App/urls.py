@@ -11,7 +11,7 @@ urlpatterns = [
     path('my/logout/', views.logout, name='logout'),
     path('my/bookings/', views.user_bookings, name='user_reservations'),
     path('my/points/', views.user_points, name='user_points'),
-    path('my/profile/', views.user_profile, name='user_profile'),
+    path('my/profile/', views.user_details, name='user_profile'),
     # =========================================================== manager
     path('manage/boots/', views.all_boots, name='all_boots'),
     path('manage/reservations/', views.all_reservations, name='all_reservations'),

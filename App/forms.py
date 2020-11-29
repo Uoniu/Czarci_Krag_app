@@ -18,6 +18,14 @@ class Rezerwacjaform(forms.Form):
     usluga = forms.ModelChoiceField(queryset=App.models.Uslugi.objects.all())
 
 
+class Uzytkownikform(forms.Form):
+    TypUzytkownika = forms.ChoiceField(choices=[('Użytkownik','Użytkownik'),('Administrator','Administrator'),('Gość','Gość')], required=False)
+    Imie = forms.CharField(max_length=50)
+    Nazwisko = forms.CharField(max_length=80)
+    email = forms.CharField(max_length=100)
+    NrTelefonu = forms.CharField(max_length=15)
+
+
 
 
 

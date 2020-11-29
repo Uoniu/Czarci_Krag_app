@@ -29,6 +29,10 @@ def user_bookings(request):
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
         if request.method == 'POST':
+            if request.POST.get('bookid'):
+                tmp = App.models.Rezerwacja.objects.get(id=request.POST.get('bookid'))
+                tmp.delete()
+                return redirect(user_bookings)
             form = App.forms.Rezerwacjaform(request.POST)
             if form.is_valid():
                 tmp_rezerwacja = App.models.Rezerwacja()
@@ -38,10 +42,11 @@ def user_bookings(request):
                 tmp_rezerwacja.IdUslugi = form.cleaned_data['usluga']
                 tmp_rezerwacja.IdUzytkownika = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
                 tmp_rezerwacja.save()
-                return redirect(guest_home)
+                return redirect(user_bookings)
         else:
             form = App.forms.Rezerwacjaform()
             context['form'] = form
+            context['bookinglist'] = App.models.Rezerwacja.objects.filter(IdUzytkownika_id=request.session.get('userid'))
             return render(request, 'user/user_bookings.html', context)
     else:
         return redirect(guest_home)
@@ -51,6 +56,7 @@ def user_points(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['program'] = App.models.ProgramLojalnosciowy.objects.filter(IdUzytkownika_id=request.session.get('userid'))
         return render(request, 'user/user_points.html', context)
     else:
         return redirect(guest_home)
@@ -136,6 +142,12 @@ def all_reservations(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['bookinglist'] = App.models.Rezerwacja.objects.all()
+        if request.method == 'POST':
+            if request.POST.get('bookid'):
+                tmp = App.models.Rezerwacja.objects.get(id=request.POST.get('bookid'))
+                tmp.delete()
+                return redirect(all_reservations)
         return render(request, 'manager/all_reservations.html', context)
     else:
         return redirect(guest_home)
@@ -165,14 +177,67 @@ def all_users(request):
 
 
 def user_details(request):
-    context = {'activeuser': App.models.Uzytkownik.objects.get(id=request.session.pop('idnum'))}
-    render (request,'power/all_users_tmp.html',context)
+    context = {}
+    if request.session.get('idnum'):
+        user = App.models.Uzytkownik.objects.get(id=request.session.get('idnum'))
+        context['activeuser'] = user
+    elif request.session.get('userid'):
+        user = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['activeuser'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+    else:
+        redirect(guest_home)
+    if request.session.get('userid'):
+        context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+    if request.method == "POST":
+        form = App.forms.Uzytkownikform(request.POST)
+        if request.POST.get('delete'):
+            if user.id == request.session.get('userid'):
+                user.delete()
+                del request.session['userid']
+                return redirect(guest_home)
+            user.delete()
+            return redirect(guest_home)
+        if request.POST.get('edit'):
+            if form.is_valid():
+                tmp_user = App.models.Uzytkownik(id=user.id)
+                tmp_user.Imie = form.cleaned_data['Imie']
+                tmp_user.Nazwisko = form.cleaned_data['Nazwisko']
+                tmp_user.email = form.cleaned_data['email']
+                if form.cleaned_data['TypUzytkownika']:
+                    tmp_user.TypUzytkownika = form.cleaned_data['TypUzytkownika']
+                else:
+                    tmp_user.TypUzytkownika = "Użytkownik"
+                tmp_user.NrTelefonu = form.cleaned_data['NrTelefonu']
+                tmp_user.Haslo = user.Haslo
+                tmp_user.save()
+                return redirect(guest_home)
+    form = App.forms.Uzytkownikform()
+    form.fields['Imie'].initial = user.Imie
+    form.fields['Nazwisko'].initial = user.Nazwisko
+    form.fields['NrTelefonu'].initial = user.NrTelefonu
+    form.fields['email'].initial = user.email
+    form.fields['TypUzytkownika'].initial = user.TypUzytkownika
+    context['form'] = form
+    return render (request, 'power/all_users_tmp.html', context)
 
 
 def all_programs(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['programs'] = App.models.ProgramLojalnosciowy.objects.all()
+        if request.POST.get('dodaj'):
+            if request.POST.get('punkty'):
+                tmp = App.models.ProgramLojalnosciowy.objects.get(id=request.POST.get('dodaj'))
+                tmp.Punkty += int(request.POST.get('punkty'))
+                tmp.save()
+                return redirect(all_programs)
+        if request.POST.get('zmiana'):
+            if request.POST.get('nagroda'):
+                tmp = App.models.ProgramLojalnosciowy.objects.get(id=request.POST.get('zmiana'))
+                tmp.Nagroda = request.POST.get('nagroda')
+                tmp.save()
+                return redirect(all_programs)
         return render(request, 'power/all_programs.html', context)
     else:
         return redirect(guest_home)
