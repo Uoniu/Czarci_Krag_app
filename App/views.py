@@ -42,10 +42,9 @@ def user_bookings(request):
         else:
             form = App.forms.Rezerwacjaform()
             context['form'] = form
-            print(context)
             return render(request, 'user/user_bookings.html', context)
     else:
-        return render(request, 'guest/home.html')
+        return redirect(guest_home)
 
 
 def user_points(request):

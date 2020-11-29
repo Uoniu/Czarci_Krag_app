@@ -3,15 +3,6 @@ from django.db import models
 # Create your models here.
 
 
-class Test(models.Model):
-    col = models.CharField(max_length=100)
-
-
-class Test_Photos(models.Model):
-    photo = models.ImageField(upload_to='test_photos')
-    name = models.CharField(max_length=100)
-
-
 class Aktualnosci(models.Model):
     Naglowek = models.CharField(max_length=50)
     Tresc = models.CharField(max_length=100)
