@@ -154,10 +154,19 @@ def notifications(request):
 def all_users(request):
     context = {}
     if request.session.get('userid'):
+        if request.method == "POST":
+            request.session['idnum'] = request.POST.get("idnum", "")
+            return redirect(user_details)
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['userlist'] = App.models.Uzytkownik.objects.all()
         return render(request, 'power/all_users.html', context)
     else:
         return redirect(guest_home)
+
+
+def user_details(request):
+    context = {'activeuser': App.models.Uzytkownik.objects.get(id=request.session.pop('idnum'))}
+    render (request,'power/all_users_tmp.html',context)
 
 
 def all_programs(request):

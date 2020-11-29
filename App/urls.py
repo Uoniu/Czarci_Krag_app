@@ -19,6 +19,7 @@ urlpatterns = [
 
     # =========================================================== admin
     path('power/users/', views.all_users, name='all_users'),
+    path('power/users_details/', views.user_details, name='user_details'),
     path('power/points/', views.all_programs, name='all_programs'),
 
     # =========================================================== shared

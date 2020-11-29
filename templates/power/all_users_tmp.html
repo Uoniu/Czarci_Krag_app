@@ -1,0 +1,15 @@
+{% extends 'guest/home.html' %}
+
+{% block content %}
+    <div id="all_users_details" class="title">
+        <h1>Wszyscy użytkownicy</h1>
+        < id="user">
+
+        {% if activeuser %}
+            <h2>{{ activeuser.email}}</h2> <br/>
+            <span>{{ activeuser.TypUzytkownika }}</span>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
