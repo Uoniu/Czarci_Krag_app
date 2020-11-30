@@ -4,8 +4,25 @@
     <div id="notifications" class="title">
         <h1>Notyfikacje</h1>
         <hr><hr>
+        {% if mail %}
+        <h3>Twoja wiadomość została wysłana!</h3>
+        {% endif %}
 
-        <p>hardkodowany na razie notyfikacje</p>
+        {% if form %}
+        <div style="text-align: left">
+            <form method="post" >
+                {% csrf_token %}
+                <h3>Do: </h3><br/>
+                {{ form.To }}
+                <h3>Do wiadomości: </h3><br/>
+                {{ form.Cc }} <br/>
+                <h3>Temat: </h3> {{ form.Subject }}<br/>
+                <h3>Wiadomość:</h3><br/>
+                {{ form.Msg }}<br/>
+                <button type="submit" name="send">Wyślij</button>
+            </form>
+        </div>
+        {% endif %}
 
     </div>
 

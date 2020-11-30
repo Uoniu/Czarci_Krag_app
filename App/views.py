@@ -1,10 +1,9 @@
-
 # Create your views here.
-
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from Czarci_Krag.settings import EMAIL_HOST_USER
 import App.forms
 import App.models
-
 
 # =================================================================================================== guest
 def guest_home(request):
@@ -179,6 +178,25 @@ def notifications(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['form'] = App.forms.MailForm()
+        if request.method == 'POST':
+            form = App.forms.MailForm(request.POST)
+            if form.is_valid():
+
+                to = form.cleaned_data['To']
+                cc = form.cleaned_data['Cc']
+                subject = form.cleaned_data['Subject']
+                msg = form.cleaned_data['Msg']
+
+                send_mail(
+                    subject,
+                    msg,
+                    EMAIL_HOST_USER,
+                    [to,cc],
+                )
+                context['mail'] = "True"
+                context['form'] = App.forms.MailForm()
+
         return render(request, 'manager/notifications.html', context)
     else:
         return redirect(guest_home)

@@ -31,9 +31,11 @@ class FaqAskForm(forms.Form):
     Tresc=forms.CharField(max_length=200)
 
 
-class FaqAnswearForm(forms.Form):
-    Tytul=forms.CharField(max_length=50)
-    Odpowiedz=forms.CharField(max_length=200)
+class MailForm(forms.Form):
+    To = forms.EmailField(max_length=200,)
+    Cc = forms.EmailField(max_length=200, required=False)
+    Subject = forms.CharField()
+    Msg = forms.CharField(widget=forms.Textarea())
 
 
 

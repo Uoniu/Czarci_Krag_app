@@ -140,4 +140,10 @@ STATICFILES_DIRS = [
     'static'
 ]
 
+#E mail settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'KregielniaCzarciKrag@gmail.com'
+EMAIL_HOST_PASSWORD = 'CzarciKrag12#'
+EMAIL_USE_TLS = True
 
