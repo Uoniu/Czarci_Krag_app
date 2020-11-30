@@ -3,18 +3,22 @@
 {% block content %}
     <div id="all_users" class="title">
         <h1>Wszyscy użytkownicy</h1>
+        <hr><hr>
         <div id="userlist">
 
-            <table>
+
             {% if userlist %}
+            <table>
             {% for k in userlist %}
-                <tr> <td> <h2>{{ k.email}}</h2></td> </tr>
+                <tr> <td> <h3>{{ k.email}}</h3></td> </tr>
                 <tr> <td><span>{{ k.Imie }} {{ k.Nazwisko }}</span></td></tr>
                 <tr> <td><form method="post">{% csrf_token %}<input type="hidden" name="idnum" value="{{ k.id }}"><button type="submit">szczegóły</button> </form></td></tr>
+                <tr><td><hr></td></tr>
             {% endfor %}
+            </table>
             {% endif %}
 
-            </table>
+
 
         </div>
 

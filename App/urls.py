@@ -30,6 +30,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('login/', views.login, name='login'),
     path('faq/', views.faq, name='faq'),
+    path('add_user/', views.add_user, name='add_user'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

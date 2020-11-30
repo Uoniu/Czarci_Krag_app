@@ -17,7 +17,14 @@
                 </form>
                 <form method="post">
                     {% csrf_token %}
-                    <input type="text" name="nagroda"/> <button type="submit" name="zmiana" value="{{ k.id }}"> zmień nagrodę </button>
+                    <select name="nagroda" size="2">
+                        <option value="talon">Talon</option>
+                        <option value="medal">Medal</option>
+                        <option value="zniżka 50%">Zniżka 50%</option>
+                        <option value="darmowe wejście">Darmowe Wejście</option>
+                        <option value="urodziny w czarcim kręgu">Urodziny w Czarcim Kręgu!</option>
+                    </select>
+                    <button type="submit" name="zmiana" value="{{ k.id }}"> zmień nagrodę </button>
                 </form>
                 </td> </tr>
                 <tr><td> <hr></td> </tr>
@@ -25,6 +32,15 @@
             {% endfor %}
         {% endif %}
         </table>
+        <br/><br/><hr>
+        <h2>Dodaj do programu lojalnościowego</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit"> Dodaj </button>
+        </form>
+        <br/>
+
     </div>
 
 {% endblock %}

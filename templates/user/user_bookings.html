@@ -3,6 +3,7 @@
 {% block content %}
     <div id="User_bookings" class="title">
         <h1>Moje rezerwacje</h1>
+        <hr><hr>
 
     <form method="post">
         {% csrf_token %}
@@ -15,9 +16,9 @@
     <table>
         {% if bookinglist %}
         {% for book in bookinglist %}
-            <tr> <td> <h2>{{ book.DataRozpoczecia }} - {{ book.DataZakonczenia }}</h2></td> </tr>
+            <tr> <td> <h3>{{ book.IdUslugi.NazwaUslugi }}</h3></td> </tr>
             <tr> <td><span>{{ book.Uwagi }} </span></td></tr>
-            <tr> <td><span> {{ book.IdUslugi.NazwaUslugi }}</span></td></tr>
+            <tr> <td><span>{{ book.DataRozpoczecia }} - {{ book.DataZakonczenia }} </span></td></tr>
             <tr> <td><form method="post">{% csrf_token %}<button type="submit" name="bookid" value="{{ book.id }}">Usuń</button></form></td></tr>
             <tr> <td><hr></td></tr>
         {% endfor %}

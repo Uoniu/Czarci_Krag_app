@@ -7,8 +7,9 @@
     {% csrf_token %}
     {{ form }}
     <button type="submit">Login</button>
-
     </form>
+    <br>
+    Nie posiadasz konta użytkownika?<br/><a href="{% url 'add_user' %}" title="">Utwórz je tutaj</a>
 
 {% endblock %}
 

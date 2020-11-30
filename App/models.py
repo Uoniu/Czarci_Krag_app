@@ -5,7 +5,7 @@ from django.db import models
 
 class Aktualnosci(models.Model):
     Naglowek = models.CharField(max_length=50)
-    Tresc = models.CharField(max_length=100)
+    Tresc = models.TextField(max_length=200)
     Istotnosc = models.IntegerField()
 
 
@@ -42,6 +42,9 @@ class Uzytkownik(models.Model):
     Haslo = models.CharField(max_length=300)
     email = models.CharField(max_length=100)
     NrTelefonu = models.CharField(max_length=15)
+
+    def __str__(self):
+        return str(self.email)
 
 class Galeria (models.Model):
     Tytul = models.CharField(max_length=30)

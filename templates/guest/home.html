@@ -55,17 +55,18 @@
         <div id="main">
 
             {% block content %}
-            <div id="Aktualności" class="title">
+            <div id="Aktualności" class="title" style="alignment: center">
 
                 <h1>Nowości</h1>
                 <hr><hr>
 
-                <table>
+                <table style="margin-left: auto;margin-right: auto">
                 {% if obj %}
                 {% for k in obj %}
                     {% if k.Naglowek != "Cennik" %}
-                    <tr> <td> <h2>{{ k.Naglowek}}</h2></td> </tr>
-                    <tr> <td><span>{{ k.Tresc }}</span></td></tr>
+                    <tr> <td> <h3 style="text-align: center">{{ k.Naglowek}}</h3></td> </tr>
+                    <tr> <td><span style="text-align: center">{{ k.Tresc }}</span></td></tr>
+                    <tr> <td><hr></td></tr>
                     {% endif %}
                 {% endfor %}
                 {% endif %}

@@ -1,0 +1,22 @@
+{% extends 'guest/home.html' %}
+
+{% block content %}
+    <div id="About" class="title">
+    <h1>Dodaj użytkownika</h1>
+    <hr><hr>
+    {% if badpass == "1" %}
+        <span style="color: #ba2121">błędne sprawdzenie hasła</span>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        Imie i Nazwisko: {{ form.Imie }} {{ form.Nazwisko }}<br/>
+        e-mail: {{ form.email }}<br/>
+        nr. telefonu: {{ form.NrTelefonu }}<br/>
+        hasło: <input type="password" name="pass"/><br/>
+        powtórz hasło: <input type="password" name="repass"><br/>
+        <button type="submit">Dodaj</button>
+    </form>
+
+    </div>
+
+{% endblock %}
