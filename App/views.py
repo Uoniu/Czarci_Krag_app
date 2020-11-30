@@ -6,7 +6,7 @@ import App.forms
 import App.models
 
 
-# ==========================================guest
+# =================================================================================================== guest
 def guest_home(request):
     context = {'obj': App.models.Aktualnosci.objects.all()}
     if request.session.get('userid'):
@@ -14,7 +14,7 @@ def guest_home(request):
     return render(request, 'guest/home.html', context)
 
 
-# ==========================================user
+# ======================================================================================================== user
 def logout(request):
     if request.method == 'GET':
         if 'action' in request.GET:
@@ -71,7 +71,7 @@ def user_profile(request):
         return redirect(guest_home)
 
 
-# ==========================================shared
+# =================================================================================================== shared
 def prices(request):
     context = {'ceny': App.models.Aktualnosci.objects.get(Naglowek="Cennik")}
     if request.session.get('userid'):
@@ -105,6 +105,22 @@ def faq(request):
 
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['form'] = App.forms.FaqAskForm()
+        if request.POST.get('zmien'):
+            tmp_faq = App.models.FAQ.objects.get(id=request.POST.get('zmien'))
+            tmp_faq.Odpowiedz = request.POST.get('odpowiedz')
+            tmp_faq.save()
+            return redirect(faq)
+        if request.method == 'POST':
+            form = App.forms.FaqAskForm(request.POST)
+            if form.is_valid():
+                tmp_faq = App.models.FAQ()
+                tmp_faq.Tresc = form.cleaned_data['Tresc']
+                tmp_faq.Tytul = form.cleaned_data['Tytul']
+                tmp_faq.Odpowiedz = "Jeszcze nie ma odpowiedzi"
+                tmp_faq.save()
+                return redirect(faq)
+
     return render(request, 'shared/faq.html', context)
 
 
@@ -112,24 +128,28 @@ def login(request):
     context = {}
     if request.method == 'POST':
         form = App.forms.LoginForm(request.POST)
+
         if form.is_valid():
             mail = form.cleaned_data['mail']
             password = form.cleaned_data['password']
-
             try:
-                context['user'] = App.models.Uzytkownik.objects.get(email=mail)
-                if context['user'].Haslo == password:
-                    request.session['userid'] = context['user'].id.__str__()
-                    context['obj'] = App.models.Aktualnosci.objects.all()
-                    return render(request, 'guest/home.html', context)
-            except AssertionError as error:
-                guest_home(request)
-    else:
-        context['form'] = App.forms.LoginForm()
-        return render(request, 'shared/login.html', context)
+                user = App.models.Uzytkownik.objects.get(email=mail)
+            except:
+                return redirect(login)
+
+            if user.Haslo == password:
+                context['user'] = user
+                request.session['userid'] = context['user'].id.__str__()
+                context['obj'] = App.models.Aktualnosci.objects.all()
+                return render(request, 'guest/home.html', context)
+            else:
+                return redirect(login)
+
+    context['form'] = App.forms.LoginForm()
+    return render(request, 'shared/login.html', context)
 
 
-# ==========================================manager
+# ==================================================================================================== manager
 def all_boots(request):
     context = {}
     if request.session.get('userid'):
@@ -163,7 +183,7 @@ def notifications(request):
         return redirect(guest_home)
 
 
-# ==========================================admin
+# ================================================================================================== admin
 def all_users(request):
     context = {}
     if request.session.get('userid'):

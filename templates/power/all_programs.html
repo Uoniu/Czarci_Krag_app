@@ -6,7 +6,7 @@
         <table>
             {%  if programs %}
             {% for k in programs %}
-
+                <tr><td><b>{{ k.IdUzytkownika.Imie }} {{ k.IdUzytkownika.Nazwisko }}</b></td></tr>
                 <tr><td><b>{{ k.IdUzytkownika.email }}</b></td></tr>
                 <tr> <td><b>{{ k.Punkty }}</b> -> {{ k.Nagroda }}</td> </tr>
                 <tr><td>

@@ -10,15 +10,40 @@
         {% for k in fq %}
             <tr> <td> <h3>Tytuł: {{ k.Tytul }}<br></h3></td></tr>
             <tr> <td><h4>Pytanie:</h4></td></tr>
-            <tr> <td><span>{{ k.Tresc }}</span></td></tr>
+            <tr> <td>{{ k.Tresc }}</td></tr>
             <tr> <td> <h4>Odpowiedź:</h4></td></tr>
-            <tr> <td><span>{{ k.Odpowiedz }}</span></td></tr>
+            <tr> <td>{{ k.Odpowiedz }}</td></tr>
+            {% if user.TypUzytkownika == "Administrator" or user.TypUzytkownika == "Kierownik" %}
+                <tr> <td>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="odpowiedz"/> <button type="submit" name="zmien" value="{{ k.id }}">Zmień odpowiedź</button>
+                </form>
+                </td></tr>
+            {% endif %}
             <tr> <td><hr></td></tr>
 
         {% endfor %}
         {% endif %}
-
         </table>
+        {% if form %}
+        {% if user.TypUzytkownika == "Użytkownik" %}
+        <h3>Dodaj pytanie</h3>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <tr><td>Tytuł pytania: {{ form.Tytul }}</td></tr>
+                <tr><td>Treść pytania: {{ form.Tresc }}</td></tr>
+                <tr><td><button type="submit">Dodaj pytanie</button></td></tr>
+            </table>
+        </form>
+        {% endif %}
+        {% endif %}
+{#        {% elif user.TypUzytkownika == "Administrator" or user.TypUzytkownika == "Kierownik" %}#}
+{#        <h3>Dodaj odpo</h3>#}
+
+
+
 
     </div>
 

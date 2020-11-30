@@ -26,6 +26,16 @@ class Uzytkownikform(forms.Form):
     NrTelefonu = forms.CharField(max_length=15)
 
 
+class FaqAskForm(forms.Form):
+    Tytul=forms.CharField(max_length=50)
+    Tresc=forms.CharField(max_length=200)
+
+
+class FaqAnswearForm(forms.Form):
+    Tytul=forms.CharField(max_length=50)
+    Odpowiedz=forms.CharField(max_length=200)
+
+
 
 
 

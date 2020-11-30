@@ -7,11 +7,11 @@
 </head>
 <body>
     <div id="page" class="container">
-        <div style="padding: 2px 0 2px 0; float: right;">
+        <div style="padding: 2px 15px 2px 0; float: right;">
             <ul>
                 <li>
                     {% if  user.TypUzytkownika == "Użytkownik" or user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
-                        <p style="color: #bbccdd">Zalogowany jako: {{user.Imie}} {{user.Nazwisko}}</p>
+                        <p style="color: #bbccdd" >Zalogowany jako: {{user.Imie}} {{user.Nazwisko}}</p>
                     {% else %}
                         <p style="color: #bbccdd">Witaj</p>
                     {% endif %}
@@ -20,7 +20,7 @@
         </div>
         <div id="header">
             <div id="logo">
-                <img src="{% static 'css/logo4.png' %}">
+                <img src="{% static 'css/logo4.png' %}" alt="">
             </div>
 
             <div id="menu">
