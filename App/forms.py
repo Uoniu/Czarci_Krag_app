@@ -8,7 +8,7 @@ class Datetimeinput(forms.DateInput):
 
 class LoginForm(forms.Form):
     mail = forms.EmailField(label="E-Mail", required=True)
-    password = forms.CharField(widget=forms.PasswordInput(), label="Pass", required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), label="Hasło", required=True)
 
 
 class Rezerwacjaform(forms.Form):

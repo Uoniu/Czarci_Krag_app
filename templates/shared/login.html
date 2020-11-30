@@ -3,10 +3,13 @@
 {% block content %}
     <h1>Logowanie Czarnego Kręgu</h1>
     <hr><hr>
+    {% if badpass %}
+    <h3 style="color: red">Złe dane logowania!</h3>
+    {% endif %}
     <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Login</button>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Login</button>
     </form>
     <br>
     Nie posiadasz konta użytkownika?<br/><a href="{% url 'add_user' %}" title="">Utwórz je tutaj</a>

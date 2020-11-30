@@ -134,7 +134,9 @@ def login(request):
             try:
                 user = App.models.Uzytkownik.objects.get(email=mail)
             except:
-                return redirect(login)
+                context['form'] = App.forms.LoginForm()
+                context['badpass'] = True
+                return render(request, 'shared/login.html', context)
 
             if user.Haslo == password:
                 context['user'] = user
@@ -142,7 +144,9 @@ def login(request):
                 context['obj'] = App.models.Aktualnosci.objects.all()
                 return render(request, 'guest/home.html', context)
             else:
-                return redirect(login)
+                context['form'] = App.forms.LoginForm()
+                context['badpass'] = True
+                return render(request, 'shared/login.html', context)
 
     context['form'] = App.forms.LoginForm()
     return render(request, 'shared/login.html', context)
