@@ -1,0 +1,20 @@
+{% extends 'guest/home.html' %}
+
+{% block content %}
+    <div id="all_users_details" class="title">
+        {% if activeuser %}
+            <form method="post">
+            {% csrf_token %}
+            {{ form.Imie }} {{ form.Nazwisko }}<br/>
+            {{ form.email }}<br/>
+            {{ form.NrTelefonu }}<br/>
+            {% if user.TypUzytkownika == "Administrator" %}
+                {{ form.TypUzytkownika }}<br/>
+            {% endif %}
+        {% endif %}
+        <br/><button type="submit" name="edit" value="edit">Edytuj</button></form>
+        <form method="post">{% csrf_token %}<button type="submit" name="delete" value="delete">Usuń</button></form>
+    </div>
+
+
+{% endblock %}

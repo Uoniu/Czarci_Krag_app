@@ -1,0 +1,25 @@
+{% extends 'guest/home.html' %}
+
+{% block content %}
+    <div id="all_reservations" class="title">
+        <h1>Wszystkie rezerwacje</h1>
+
+        <table>
+        {% if bookinglist %}
+        {% for book in bookinglist %}
+            <tr> <td> <h2>{{ book.DataRozpoczecia }} - {{ book.DataZakonczenia }}</h2></td> </tr>
+            <tr> <td><span>{{ book.Uwagi }} </span></td></tr>
+            <tr> <td><span> {{ book.IdUslugi.NazwaUslugi }}</span></td></tr>
+            <tr> <td><form method="post">{% csrf_token %}<button type="submit" name="bookid" value="{{ book.id }}">Usuń</button></form></td></tr>
+            <tr> <td><hr></td></tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+    </div>
+
+    </div>
+
+{% endblock %}
+
+
+

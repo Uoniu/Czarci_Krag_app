@@ -1,0 +1,28 @@
+{% extends 'guest/home.html' %}
+
+{% block content %}
+    <div id="faq" class="title">
+        <h1>FAQ</h1>
+        <hr><hr>
+
+        <table>
+        {% if fq %}
+        {% for k in fq %}
+            <tr> <td> <h3>Tytuł: {{ k.Tytul }}<br></h3></td></tr>
+            <tr> <td><h4>Pytanie:</h4></td></tr>
+            <tr> <td><span>{{ k.Tresc }}</span></td></tr>
+            <tr> <td> <h4>Odpowiedź:</h4></td></tr>
+            <tr> <td><span>{{ k.Odpowiedz }}</span></td></tr>
+            <tr> <td><hr></td></tr>
+
+        {% endfor %}
+        {% endif %}
+
+        </table>
+
+    </div>
+
+{% endblock %}
+
+
+
