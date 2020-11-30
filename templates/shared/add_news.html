@@ -1,0 +1,17 @@
+{% extends 'guest/home.html' %}
+
+{% block content %}
+    <div id="add_news" class="title">
+        <h1>Dodawanie wiadomość</h1>
+        <hr><hr>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <br/>
+            <button type="submit">Dodaj</button>
+        </form>
+
+    </div>
+
+{% endblock %}

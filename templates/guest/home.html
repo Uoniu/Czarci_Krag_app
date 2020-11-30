@@ -55,6 +55,12 @@
         <div id="main">
 
             {% block content %}
+            {% if user.TypUzytkownika == "Kierownik" or user.TypUzytkownika == "Administrator" %}
+                <div style="float: right">
+                <a href="{% url 'add_news' %}"> <button>Dodaj Aktualność</button> </a>
+                </div>
+                <br/><br/><br/>
+            {% endif %}
             <div id="Aktualności" class="title" style="alignment: center">
 
                 <h1>Nowości</h1>
@@ -65,7 +71,7 @@
                 {% for k in obj %}
                     {% if k.Naglowek != "Cennik" %}
                     <tr> <td> <h3 style="text-align: center">{{ k.Naglowek}}</h3></td> </tr>
-                    <tr> <td><span style="text-align: center">{{ k.Tresc }}</span></td></tr>
+                    <tr> <td><span style="text-align: center">{{ k.Tresc | linebreaks}}</span></td></tr>
                     <tr> <td><hr></td></tr>
                     {% endif %}
                 {% endfor %}
