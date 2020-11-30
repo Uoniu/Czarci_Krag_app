@@ -19,7 +19,7 @@ class Rezerwacjaform(forms.Form):
 
 
 class Uzytkownikform(forms.Form):
-    TypUzytkownika = forms.ChoiceField(choices=[('Użytkownik','Użytkownik'),('Administrator','Administrator'),('Gość','Gość')], required=False)
+    TypUzytkownika = forms.ChoiceField(choices=[('Użytkownik','Użytkownik'),('Administrator','Administrator')], required=False)
     Imie = forms.CharField(max_length=50)
     Nazwisko = forms.CharField(max_length=80)
     email = forms.CharField(max_length=100)
@@ -34,6 +34,10 @@ class FaqAskForm(forms.Form):
 class FaqAnswearForm(forms.Form):
     Tytul=forms.CharField(max_length=50)
     Odpowiedz=forms.CharField(max_length=200)
+
+
+class AddToProgram(forms.Form):
+    Uzytkownik = forms.ModelChoiceField(queryset=App.models.Uzytkownik.objects.filter(TypUzytkownika="Użytkownik"))
 
 
 

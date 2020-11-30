@@ -247,7 +247,19 @@ def all_programs(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
-        context['programs'] = App.models.ProgramLojalnosciowy.objects.all()
+        context['programs'] = App.models.ProgramLojalnosciowy.objects.all().order_by('id')
+        if request.method == "POST":
+            form = App.forms.AddToProgram(request.POST)
+            context['form'] = App.forms.AddToProgram()
+            if form.is_valid():
+                tmp = App.models.ProgramLojalnosciowy()
+                tmp.IdUzytkownika = form.cleaned_data['Uzytkownik']
+                tmp.Punkty = 0
+                tmp.Nagroda = "brak"
+                tmp.save()
+                return render(request, 'power/all_programs.html', context)
+        else:
+            context['form'] = App.forms.AddToProgram()
         if request.POST.get('dodaj'):
             if request.POST.get('punkty'):
                 tmp = App.models.ProgramLojalnosciowy.objects.get(id=request.POST.get('dodaj'))
@@ -263,6 +275,32 @@ def all_programs(request):
         return render(request, 'power/all_programs.html', context)
     else:
         return redirect(guest_home)
+
+
+def add_user (request):
+    context = {}
+    if request.method == "POST":
+        form = App.forms.Uzytkownikform(request.POST)
+        if form.is_valid():
+            tmp = App.models.Uzytkownik()
+            tmp.Imie = form.cleaned_data['Imie']
+            tmp.Nazwisko = form.cleaned_data['Nazwisko']
+            tmp.email = form.cleaned_data['email']
+            tmp.NrTelefonu = form.cleaned_data['NrTelefonu']
+            tmp.TypUzytkownika = "Użytkownik"
+            if request.POST.get('pass') == request.POST.get('repass'):
+                tmp.Haslo = request.POST.get('pass')
+            else:
+                context['badpass'] = "1"
+                context['form'] = App.forms.Uzytkownikform()
+                return render(request, 'shared/add_user.html', context)
+            tmp.save()
+            request.session['userid'] = tmp.id
+            return redirect(guest_home)
+        print("nie wchodzi")
+        redirect(login)
+    context['form'] = App.forms.Uzytkownikform()
+    return render(request, 'shared/add_user.html', context)
 
 
 
