@@ -2,19 +2,22 @@
 
 {% block content %}
     <div id="all_reservations" class="title">
-        <h1>Wszystkie rezerwacje</h1>
+        <h2>Wszystkie rezerwacje</h2>
+        <hr><hr>
 
-        <table>
+
         {% if bookinglist %}
+            <table>
         {% for book in bookinglist %}
-            <tr> <td> <h2>{{ book.DataRozpoczecia }} - {{ book.DataZakonczenia }}</h2></td> </tr>
+            <tr> <td><h3> {{ book.IdUslugi.NazwaUslugi }}</h3></td></tr>
+            <tr> <td><span>{{ book.DataRozpoczecia }} - {{ book.DataZakonczenia }}</span></td> </tr>
             <tr> <td><span>{{ book.Uwagi }} </span></td></tr>
-            <tr> <td><span> {{ book.IdUslugi.NazwaUslugi }}</span></td></tr>
             <tr> <td><form method="post">{% csrf_token %}<button type="submit" name="bookid" value="{{ book.id }}">Usuń</button></form></td></tr>
             <tr> <td><hr></td></tr>
         {% endfor %}
+            </table>
         {% endif %}
-    </table>
+
     </div>
 
     </div>

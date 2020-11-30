@@ -2,9 +2,19 @@
 
 {% block content %}
     <div id="all_boots" class="title">
-        <h1>Wszystkie buty</h1>
+        <h2>Wszystkie buty</h2>
+        <hr><hr>
 
-        <p>hardkodowany na razie buty</p>
+        {% if boots %}
+            <table>
+        {% for k in boots %}
+            <tr> <td><h3> Rezerwacja: {{ k.Id_Rezerwacji }}</h3></td></tr>
+            <tr> <td><span>Rozmiar: {{ k.Rozmiar }}</span></td> </tr>
+            <tr> <td><hr></td></tr>
+        {% endfor %}
+            </table>
+        {% endif %}
+
 
     </div>
 

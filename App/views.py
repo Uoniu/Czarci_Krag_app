@@ -154,6 +154,7 @@ def all_boots(request):
     context = {}
     if request.session.get('userid'):
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+        context['boots'] = App.models.Buty.objects.all()
         return render(request, 'manager/all_boots.html', context)
     else:
         return redirect(guest_home)
