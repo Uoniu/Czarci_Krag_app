@@ -188,7 +188,6 @@ def notifications(request):
             if form.is_valid():
 
                 to = form.cleaned_data['To']
-                cc = form.cleaned_data['Cc']
                 subject = form.cleaned_data['Subject']
                 msg = form.cleaned_data['Msg']
 
@@ -196,11 +195,10 @@ def notifications(request):
                     subject,
                     msg,
                     EMAIL_HOST_USER,
-                    [to,cc],
+                    [to],
                 )
                 context['mail'] = "True"
-                context['form'] = App.forms.MailForm()
-
+        context['form'] = App.forms.MailForm()
         return render(request, 'manager/notifications.html', context)
     else:
         return redirect(guest_home)
@@ -211,8 +209,13 @@ def all_users(request):
     context = {}
     if request.session.get('userid'):
         if request.method == "POST":
-            request.session['idnum'] = request.POST.get("idnum", "")
-            return redirect(user_details)
+            if request.POST.get('idnum'):
+                request.session['idnum'] = request.POST.get("idnum", "")
+                return redirect(user_details)
+            if request.POST.get('search'):
+                context['userlist'] = App.models.Uzytkownik.objects.filter(Nazwisko__contains=request.POST.get('search_text'))
+                context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+                return render(request, 'power/all_users.html', context)
         context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
         context['userlist'] = App.models.Uzytkownik.objects.all()
         return render(request, 'power/all_users.html', context)
@@ -324,5 +327,18 @@ def add_user (request):
     context['form'] = App.forms.Uzytkownikform()
     return render(request, 'shared/add_user.html', context)
 
-
-
+def add_news(request):
+    context = {}
+    if request.session.get('userid'):
+        context['user'] = App.models.Uzytkownik.objects.get(id=request.session.get('userid'))
+    if request.method == "POST":
+        form = App.forms.AddNews(request.POST)
+        if form.is_valid():
+            tmp = App.models.Aktualnosci()
+            tmp.Tresc = form.cleaned_data['Content']
+            tmp.Naglowek = form.cleaned_data['Title']
+            tmp.Istotnosc = form.cleaned_data['Istotnosc']
+            tmp.save()
+            return redirect(guest_home)
+    context['form'] = App.forms.AddNews()
+    return render(request, 'shared/add_news.html', context)

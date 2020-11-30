@@ -5,8 +5,11 @@
         <h1>Wszyscy użytkownicy</h1>
         <hr><hr>
         <div id="userlist">
-
-
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="search_text"/>
+            <button type="submit" name="search" value="1"> szukaj </button>
+        </form>
             {% if userlist %}
             <table>
             {% for k in userlist %}

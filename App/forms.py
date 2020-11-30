@@ -32,14 +32,19 @@ class FaqAskForm(forms.Form):
 
 
 class MailForm(forms.Form):
-    To = forms.EmailField(max_length=200,)
-    Cc = forms.EmailField(max_length=200, required=False)
+    To = forms.ModelChoiceField(queryset=App.models.Uzytkownik.objects.filter(TypUzytkownika="Użytkownik"))
     Subject = forms.CharField()
     Msg = forms.CharField(widget=forms.Textarea())
 
 
 class AddToProgram(forms.Form):
     Uzytkownik = forms.ModelChoiceField(queryset=App.models.Uzytkownik.objects.filter(TypUzytkownika="Użytkownik"))
+
+
+class AddNews(forms.Form):
+    Title = forms.CharField(max_length=50)
+    Content = forms.CharField(widget=forms.Textarea(), max_length=200)
+    Istotnosc = forms.ChoiceField(choices=[('1','mało istotne'),('2','istotne'),('3','bardzo istotne')])
 
 
 
