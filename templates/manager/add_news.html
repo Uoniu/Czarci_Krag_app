@@ -7,7 +7,19 @@
 
         <form method="post">
             {% csrf_token %}
-            {{ form }}
+
+            <h3>Tytuł:</h3> <br/>
+            {{ form.Title }}
+            <br/>
+
+            <h3>Wiadomość:</h3> <br/>
+            {{ form.Content }}
+            <br/>
+
+            <h3>Istotność:</h3> <br/>
+            {{ form.Istotnosc }}
+            <br/>
+
             <br/>
             <button type="submit">Dodaj</button>
         </form>
