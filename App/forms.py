@@ -19,7 +19,7 @@ class Rezerwacjaform(forms.Form): #formularz utworzenia nowej rezerwacji, usług
 
 
 class Uzytkownikform(forms.Form): #formularz wykorzystywany do utworzenia oraz edycji obiektu użytkownika systemu
-    TypUzytkownika = forms.ChoiceField(choices=[('Użytkownik','Użytkownik'),('Administrator','Administrator')], required=False)
+    TypUzytkownika = forms.ChoiceField(choices=[('Użytkownik','Użytkownik'), ('Kierownik','Kierownik'), ('Administrator','Administrator')], required=False)
     Imie = forms.CharField(max_length=50)
     Nazwisko = forms.CharField(max_length=80)
     email = forms.CharField(max_length=100)
