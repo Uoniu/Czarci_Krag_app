@@ -7,7 +7,19 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ form }}
+        <h3>Data rozpoczęcia:</h3>
+        {{ form.data_rozpoczeczia }}
+        <br/>
+        <h3>Data zakończenia:</h3>
+        {{ form.data_zakonczenia }}
+        <br/>
+        <h3>Usługa:</h3>
+        {{ form.usluga }}
+        <br/>
+        <h3>Uwagi:</h3>
+        {{ form.uwagi }}
+        <br/>
+{#        {{ form }}#}
         <button type="submit">Rezerwuj</button>
     </form>
     </div>
